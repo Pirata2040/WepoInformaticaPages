@@ -1,0 +1,9 @@
+# Never commit local credentials or exported secrets.
+.env
+.env.*
+*.secret
+*.pem
+*.p12
+node_modules/
+.DS_Store
+Thumbs.db

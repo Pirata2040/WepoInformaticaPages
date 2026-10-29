@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0b1833">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://*.supabase.co wss://*.supabase.co; style-src 'self'; img-src 'self' data: https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <title>Painel administrativo | Wepo Informática</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script src="../assets/js/supabase-config.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="../assets/js/supabase-client.js" defer></script>
+  <script src="../assets/js/admin.js" defer></script>
+</head>
+<body class="admin-page">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="site-header"><div class="container admin-header">
+    <a class="brand" href="../index.html"><span class="brand-icon" aria-hidden="true">W</span><span class="brand-name">WEPO<span class="brand-dot">.</span><small>INFORMÁTICA</small></span></a>
+    <div class="admin-header-actions"><span class="admin-crumb">Painel administrativo</span><a class="btn btn-small btn-secondary" href="../index.html">Ver site ↗</a><button class="btn btn-small btn-dark" id="sign-out" type="button" hidden>Sair</button></div>
+  </div></header>
+  <main class="container admin-main" id="conteudo">
+    <div class="admin-title"><span class="eyebrow">ÁREA RESTRITA</span><h1>Gerencie seu catálogo.</h1><p>Cadastre, edite e exclua produtos e serviços. Alterações ficam disponíveis na vitrine pública após salvar.</p></div>
+    <p class="admin-status" id="admin-status" role="status" aria-live="polite">Verificando configuração...</p>
+    <section class="admin-login admin-panel" id="login-panel" hidden aria-labelledby="login-title">
+      <div><span class="eyebrow">LOGIN SEGURO</span><h2 id="login-title">Entrar no painel</h2><p>Somente contas autorizadas no Supabase podem administrar o catálogo.</p></div>
+      <form id="login-form" autocomplete="on">
+        <label for="login-email">E-mail do administrador</label>
+        <input id="login-email" type="email" autocomplete="username" required maxlength="254" placeholder="seu@email.com">
+        <label for="login-password">Senha</label>
+        <input id="login-password" type="password" autocomplete="current-password" required placeholder="Sua senha">
+        <button type="submit" class="btn btn-primary">Entrar</button>
+      </form>
+    </section>
+    <section id="dashboard" hidden aria-label="Gestão de produtos e serviços">
+      <div class="admin-toolbar">
+        <div><h2>Produtos e serviços</h2><p>Somente administradores podem publicar alterações.</p></div>
+        <button type="button" id="new-item" class="btn btn-primary">+ Cadastrar item</button>
+      </div>
+      <div class="admin-controls"><label for="filter-kind">Tipo
+        <select id="filter-kind"><option value="todos">Produtos e serviços</option><option value="produto">Produtos</option><option value="servico">Serviços</option></select></label>
+        <label for="filter-search">Pesquisar<input id="filter-search" type="search" placeholder="Nome ou categoria" maxlength="100"></label>
+      </div>
+      <div class="admin-list" id="admin-list" aria-live="polite"></div>
+      <section id="editor" class="admin-panel admin-editor" hidden aria-labelledby="editor-title">
+        <h2 id="editor-title">Cadastrar item</h2>
+        <form id="item-form" novalidate>
+          <div class="admin-form-grid">
+            <label>Tipo <span aria-hidden="true">*</span><select id="item-kind" required><option value="produto">Produto</option><option value="servico">Serviço</option></select></label>
+            <label>Nome <span aria-hidden="true">*</span><input id="item-title" type="text" minlength="3" maxlength="100" required placeholder="Ex.: SSD 480 GB"></label>
+            <label>Categoria <span aria-hidden="true">*</span><input id="item-category" type="text" minlength="2" maxlength="60" required placeholder="Ex.: Componentes"></label>
+            <label id="price-field">Preço (R$) <small>Deixe vazio para “Sob consulta”.</small><input id="item-price" inputmode="decimal" placeholder="Ex.: 199,90" maxlength="14"></label>
+            <label>Ordem de exibição <input id="item-order" type="number" min="0" max="9999" value="0" required></label>
+            <label class="admin-toggle"><input id="item-active" type="checkbox" checked> Publicado no site</label>
+          </div>
+          <label>Descrição <span aria-hidden="true">*</span><textarea id="item-description" required minlength="10" maxlength="1200" rows="4" placeholder="Descreva o produto ou serviço."></textarea></label>
+          <div class="admin-form-grid">
+            <label>Imagem (produto) <small>PNG, JPEG ou WebP, até 3 MB.</small><input id="item-photo" type="file" accept="image/png,image/jpeg,image/webp"></label>
+            <label>URL de imagem (opcional) <small>Somente imagens do projeto ou do Storage Wepo.</small><input id="item-image-url" type="text" maxlength="1000" placeholder="assets/img/monitor.svg"></label>
+          </div>
+          <label class="admin-toggle"><input id="item-remove-image" type="checkbox"> Remover imagem atual</label>
+          <div class="admin-editor-actions"><button type="button" id="cancel-item" class="btn btn-secondary">Cancelar</button><button type="submit" class="btn btn-primary" id="save-item">Salvar alterações</button></div>
+          <p class="admin-hint">Fotos são públicas. Não envie CPF, documentos nem informações pessoais como imagens.</p>
+        </form>
+      </section>
+    </section>
+  </main>
+  <footer class="admin-footer"><div class="container">Wepo Informática · Administração do catálogo · <a href="../privacidade.html">Privacidade</a></div></footer>
+</body>
+</html>

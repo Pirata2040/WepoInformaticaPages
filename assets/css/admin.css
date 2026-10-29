@@ -1,0 +1,45 @@
+/* Painel Wepo — identidade do site público e navegação responsiva */
+.admin-page{background:#f4f8fb;min-height:100vh;color:#0b1833}
+.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px;min-height:84px}
+.admin-header-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.admin-crumb{font-weight:750;font-size:.9rem;color:#56667a}
+.admin-main{padding-top:60px;padding-bottom:90px;min-height:70vh}
+.admin-title{max-width:780px;margin-bottom:32px}
+.admin-title h1{font-size:clamp(2.3rem,5vw,3.7rem);margin:12px 0 16px}
+.admin-title p{font-size:1rem;color:#5e6c7c}
+.admin-status{background:#e3f7f4;color:#08756d;border:1px solid #a4e6dc;border-radius:12px;padding:13px 16px;margin:0 0 25px;font-weight:650}
+.admin-status.admin-error{background:#fff0ef;color:#aa2b27;border-color:#e9b4af}
+.admin-panel{padding:34px;border:1px solid #dbe5ed;background:#fff;border-radius:22px;box-shadow:0 12px 40px #10244312}
+.admin-login{max-width:540px}
+.admin-login h2{margin:14px 0}.admin-login p,.admin-toolbar p{color:#64748b}
+.admin-login form,.admin-editor form{display:grid;gap:14px}
+.admin-page label{display:grid;gap:7px;font-weight:710;font-size:.88rem}
+.admin-page label small{font-size:.75rem;color:#708094;font-weight:400}
+.admin-page input:not([type=checkbox]):not([type=file]),.admin-page textarea,.admin-page select{width:100%;border:1px solid #bfcdd9;border-radius:10px;padding:12px 14px;background:#fff;color:#12243e;min-height:45px}
+.admin-page input[type=file]{width:100%;padding:10px;border:1px dashed #b2c9d7;border-radius:10px;min-width:0}
+.admin-page input[type=checkbox]{accent-color:#1cae9c;width:18px;height:18px}
+.admin-page input:disabled{opacity:.75;background:#f1f5f9}
+.admin-page .btn:disabled{opacity:.6;cursor:not-allowed}
+.admin-toolbar{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:20px}
+.admin-toolbar h2{font-size:1.75rem;margin-bottom:6px}.admin-toolbar p{margin:0}
+.admin-controls{display:flex;gap:15px;margin:25px 0}.admin-controls label{flex:1;min-width:0}
+.admin-controls label:last-child{flex:2}
+.admin-list{display:grid;gap:12px;margin-bottom:32px}
+.admin-item{display:flex;justify-content:space-between;align-items:center;gap:18px;background:white;border:1px solid #dce6ee;border-radius:15px;padding:18px 22px}
+.admin-item h3{font-size:1.1rem;margin:9px 0 5px}.admin-item p{font-size:.85rem;color:#64748b;margin:0}
+.admin-item-tags{display:flex;flex-wrap:wrap;gap:7px}
+.admin-tag{font-size:.7rem;font-weight:850;text-transform:uppercase;letter-spacing:.03em;border-radius:100px;padding:4px 9px;background:#eff5f8;color:#445a71}
+.admin-published{background:#e3f8f0;color:#146b52}.admin-draft{background:#f3e9e8;color:#92534c}
+.admin-item-actions{display:flex;gap:9px;flex-shrink:0}
+.admin-delete{background:#fff0f0;color:#a93232;border:1px solid #f2c4c4}
+.admin-delete:hover{background:#ffe4e4}
+.admin-editor{scroll-margin-top:110px}.admin-editor h2{margin-bottom:26px}
+.admin-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.admin-toggle{display:flex!important;align-items:center;gap:10px!important;align-self:end;padding:12px 0}
+.admin-editor-actions{display:flex;gap:14px;justify-content:flex-end;margin-top:12px}
+.admin-hint{font-size:.83rem;color:#68798e;margin:0}
+.admin-empty{background:#fff;border:1px dashed #ccd9e2;border-radius:13px;padding:20px;color:#536277}
+.admin-footer{background:#0b1833;color:#dbe8f1;padding:26px 0;font-size:.84rem}
+.admin-footer a{text-decoration:underline}
+.admin-page [hidden]{display:none!important}
+@media(max-width:720px){.admin-main{padding-top:35px}.admin-header{min-height:75px}.admin-crumb{display:none}.admin-toolbar,.admin-item{align-items:stretch;flex-direction:column}.admin-item-actions .btn{flex:1}.admin-form-grid,.admin-controls{display:grid;grid-template-columns:1fr}.admin-panel{padding:22px 17px}.admin-editor-actions .btn{flex:1}.admin-header-actions .btn{padding:10px 12px}}

@@ -1,9 +1,13 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Formulário para consultar produtos, serviços e entrar em contato com a Wepo Informática."><meta name="theme-color" content="#0b1833">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://*.supabase.co wss://*.supabase.co; style-src 'self'; img-src 'self' data: https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <title>Contato | Wepo Informática</title><link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
-<link rel="stylesheet" href="../assets/css/style.css"><script src="../assets/js/config.js" defer></script><script src="../assets/js/app.js" defer></script></head>
+<link rel="stylesheet" href="../assets/css/style.css"><script src="../assets/js/config.js" defer></script>
+<script src="../assets/js/supabase-config.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="../assets/js/supabase-client.js" defer></script>
+<script src="../assets/js/app.js" defer></script></head>
 <body data-page="contato"><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <div class="top-strip"><div class="container"><span>📍 Pontalina · Goiás</span><span>Informática para o seu dia a dia</span></div></div>
 <header class="site-header"><div class="container nav-wrap">

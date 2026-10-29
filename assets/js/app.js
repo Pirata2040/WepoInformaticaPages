@@ -1,15 +1,15 @@
 /* Wepo Informática — Vanilla JS, sem dependências nem armazenamento de dados pessoais. */
 (() => {
   'use strict';
-  const SERVICES = Object.freeze({
+  let SERVICES = {
     diagnostico: 'Diagnóstico de computador', manutencao: 'Manutenção de notebook ou PC',
     limpeza: 'Limpeza preventiva', ssd: 'Instalação de SSD ou memória',
     software: 'Configuração de programas', rede: 'Configuração de rede Wi-Fi'
-  });
-  const PRODUCTS = Object.freeze({
+  };
+  let PRODUCTS = {
     mouse: 'Mouse sem fio', teclado: 'Teclado USB', ssd: 'SSD SATA 480 GB',
     headset: 'Headset com microfone', monitor: 'Monitor Full HD', roteador: 'Roteador Wi-Fi'
-  });
+  };
   const STATES = 'AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ');
   const get = id => document.getElementById(id);
   const digits = value => String(value || '').replace(/\D/g, '');
@@ -69,6 +69,39 @@
   if (['servico', 'produto', 'contato'].includes(requestedType)) requestType.value = requestedType;
   if (requestedType === 'servico' && Object.hasOwn(SERVICES, requestedId)) serviceId.value = requestedId;
   if (requestedType === 'produto' && Object.hasOwn(PRODUCTS, requestedId)) productId.value = requestedId;
+
+  // Quando o Supabase estiver ativo, o formulário passa a usar os itens publicados no banco.
+  // Não usa cache local de dados pessoais e preserva o formulário original.
+  if (window.WepoDB?.client) {
+    const submitButton = form.querySelector('button[type="submit"]');
+    const currentValues = {service:serviceId.value,product:productId.value};
+    if (submitButton) submitButton.disabled = true;
+    formStatus.hidden = false;
+    formStatus.textContent = 'Carregando produtos e serviços atualizados...';
+    Promise.all([window.WepoDB.catalog('servico'), window.WepoDB.catalog('produto')]).then(([services,products]) => {
+      SERVICES = Object.fromEntries(services.map(item=>[item.id,item.title]));
+      PRODUCTS = Object.fromEntries(products.map(item=>[item.id,item.title]));
+      serviceId.replaceChildren(new Option('Selecione o serviço',''));
+      productId.replaceChildren(new Option('Selecione o produto',''));
+      setOptions(serviceId,SERVICES);setOptions(productId,PRODUCTS);
+      const sWanted = requestedType === 'servico' ? requestedId : currentValues.service;
+      const pWanted = requestedType === 'produto' ? requestedId : currentValues.product;
+      if (Object.hasOwn(SERVICES,sWanted)) serviceId.value=sWanted;
+      if (Object.hasOwn(PRODUCTS,pWanted)) productId.value=pWanted;
+      if (submitButton) submitButton.disabled = false;
+      formStatus.hidden = true;
+    }).catch(err=>{
+      console.error('Catálogo indisponível',err);
+      // Não permitir solicitações para itens de exemplo quando o banco estiver inacessível.
+      SERVICES = {};PRODUCTS = {};
+      serviceId.replaceChildren(new Option('Catálogo temporariamente indisponível',''));
+      productId.replaceChildren(new Option('Catálogo temporariamente indisponível',''));
+      if (submitButton) submitButton.disabled = false; // Contato geral ainda pode funcionar.
+      formStatus.textContent = 'Produtos e serviços temporariamente indisponíveis. Para falar com a loja, escolha Dúvida geral.';
+      formStatus.hidden = false;
+    });
+  }
+
 
   function showType() {
     const type = requestType.value;
